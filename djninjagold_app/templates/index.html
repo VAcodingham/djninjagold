@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NinjaGold</title>
+    <style>
+        .goldbox{
+            display: inline-block;
+            border: 2px solid black;
+            padding: 20px;
+            margin-left: 20px;
+        }
+        #activities{
+            min-width: 600px;
+            min-height: 300px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ninja Gold</h1>
+    <p>Your Gold: {{request.session.total_gold}}</p>
+        <div class= "goldbox">
+            <h2>Farm</h2>
+            <p>(earns 10-20 gold)</p>
+            <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="places" value="farm" >
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+        <div class= "goldbox">
+            <h2>Cave</h2>
+            <p>(earns 5-10 gold)</p>
+            <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="places" value="cave" >   
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+        <div class= "goldbox">
+            <h2>House</h2>
+            <p>(earns 2-5 gold)</p>
+            <form action="/process_money" method="post">
+                    {% csrf_token %}
+                <input type="hidden" name="places" value="house" >
+                <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+        <div class= "goldbox">
+            <h2>Casino</h2>
+            <p>(earns/takes 0-50 gold)</p>
+            <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="places" value="casino" >
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+        <p>Activities:</p>
+            <div id = "activities">
+                {% for x in request.session.activities %}
+                    <p>{{x}}</p>
+                {%endfor%}
+
+            </div>
+        <button><a href="/reset">Reset</a></button>
+</body>
+</html>
+
+    
